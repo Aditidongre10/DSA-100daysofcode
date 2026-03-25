@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+void productExceptSelf(int nums[], int n, int answer[]) {
+    // Step 1: prefix products
+    answer[0] = 1;
+    for(int i = 1; i < n; i++) {
+        answer[i] = answer[i - 1] * nums[i - 1];
+    }
+
+    // Step 2: suffix products
+    int suffix = 1;
+    for(int i = n - 1; i >= 0; i--) {
+        answer[i] = answer[i] * suffix;
+        suffix *= nums[i];
+    }
+}
+
+int main() {
+    int nums[] = {1, 2, 3, 4};
+    int n = 4;
+
+    int answer[n];
+
+    productExceptSelf(nums, n, answer);
+
+    for(int i = 0; i < n; i++) {
+        printf("%d ", answer[i]);
+    }
+
+    return 0;
+}
